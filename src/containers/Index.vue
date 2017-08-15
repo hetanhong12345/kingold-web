@@ -4,7 +4,7 @@
             <div class="content-one">
                 <div class="content" flex>
                     <div class="one-left" flex-box="1">
-                        <p class="main">金疙瘩——懂你的职能定制理财专家</p>
+                        <p class="main">金疙瘩——懂你的智能定制理财专家</p>
                         <p class="sub">中冀投资旗下智能化理财信息展示及服务平台。</p>
                         <p class="sub"> 用科技的力量让金融普惠天下</p>
                         <div class="expc-fund" flex>
@@ -68,7 +68,7 @@
             <p class="three-title">下载APP</p>
             <div flex="main:center">
                 <div class="three-left">
-                    <p class="l-title">扫码下载 领取福利</p>
+                    <p class="l-title">扫码关注 领取福利</p>
                     <img class="present" src="../images/present.png" alt="present">
                 </div>
                 <div class="three-right">
