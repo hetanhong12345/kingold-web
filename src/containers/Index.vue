@@ -6,10 +6,10 @@
                     <div class="one-left" flex-box="1">
                         <p class="main">金疙瘩——懂你的智能定制理财专家</p>
                         <p class="sub">中冀投资旗下智能化理财信息展示及服务平台。</p>
-                        <p class="sub"> 用科技的力量让金融普惠天下</p>
+                        <p class="sub">用科技的力量让金融普惠天下</p>
                         <div class="expc-fund" flex>
-                            <img flex-box="0" src="../images/expc-fund.png" alt="">
-                            <p flex-box="1">注册即领百万体验金</p>
+                            <img flex-box="0" src="../images/dowmload.png" alt="">
+                            <p flex-box="1">下载金疙瘩APP</p>
                         </div>
                     </div>
                     <div class="one-right" flex-box="0">
