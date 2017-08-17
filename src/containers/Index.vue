@@ -50,7 +50,7 @@
                 <div class="item" flex-box="0">
                     <img class="img" src="../images/content-2.png" alt="">
                     <p class="title">百亿资本</p>
-                    <p class="sub">实力不容小视，注册资本100亿元</p>
+                    <p class="sub">实力不容小觑，注册资本100亿元</p>
                 </div>
                 <div class="item" flex-box="0">
                     <img class="img" src="../images/content-3.png" alt="">
