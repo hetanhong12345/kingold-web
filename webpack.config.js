@@ -32,7 +32,7 @@ const config = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             '@': resolve('src'),
-            'vue$': 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.esm.js'
         }
     },
     module: {
