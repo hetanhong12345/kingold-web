@@ -9,7 +9,7 @@
                         <p class="sub">用科技的力量让金融普惠天下</p>
                         <div class="expc-fund" flex>
                             <img flex-box="0" src="../images/dowmload.png" alt="">
-                            <p flex-box="1">下载金疙瘩APP</p>
+                            <p flex-box="1" class="download" @click="toBottom">下载金疙瘩APP</p>
                         </div>
                     </div>
                     <div class="one-right" flex-box="0">
@@ -116,6 +116,9 @@
                 } else {
                     window.open(androidUrl, '_blank');
                 }
+            },
+            toBottom(){
+                window.scrollTo(0, 800);
             }
         }
     }
