@@ -9,7 +9,7 @@
                         <p class="sub">用科技的力量让金融普惠天下</p>
                         <div class="expc-fund" flex>
                             <img flex-box="0" src="../images/dowmload.png" alt="">
-                            <p flex-box="1">下载金疙瘩APP</p>
+                            <p flex-box="1" class="download" @click="toBottom">下载金疙瘩APP</p>
                         </div>
                     </div>
                     <div class="one-right" flex-box="0">
@@ -75,11 +75,11 @@
                     <p class="r-title">金疙瘩——懂你，更懂理财</p>
                     <div class="img-warp" flex>
                         <div class="download-box" flex-box="0">
-                            <div class="ios" flex>
+                            <div class="ios" flex @click.stop="download('ios')">
                                 <img flex-box="0" src="../images/apple-icon.png" alt="">
                                 <p flex-box="1">iOS版下载</p>
                             </div>
-                            <div class="android" flex>
+                            <div class="android" flex @click.stop="download('android')">
                                 <img flex-box="0" src="../images/andriod-icon.png" alt="">
                                 <p flex-box="1">Android版下载</p>
                             </div>
@@ -96,6 +96,7 @@
 
 <script>
     import '../less/index.less';
+    import {androidUrl, iosUrl} from '../tools/config';
     export default {
         name: 'index',
         data () {
@@ -107,6 +108,18 @@
             setInterval(() => {
                 this.bannerIndex = this.bannerIndex % 3 + 1;
             }, 3000);
+        },
+        methods: {
+            download(platform){
+                if (platform == 'ios') {
+                    window.open(iosUrl, '_blank');
+                } else {
+                    window.open(androidUrl, '_blank');
+                }
+            },
+            toBottom(){
+                window.scrollTo(0, 800);
+            }
         }
     }
 

@@ -3,16 +3,8 @@
  */
 import 'babel-polyfill';
 import axios from 'axios';
-import {devUrl, testUrl, productionUrl, nodeTestApi, nodeProductionApi} from './config';
-let serverUrl = devUrl;
-let nodeUrl = nodeTestApi;
-if (process.env.kingold == 'test') {
-    serverUrl = testUrl;
-}
-if (process.env.kingold == 'production') {
-    serverUrl = productionUrl;
-    nodeUrl = nodeProductionApi;
-}
+import config from './config';
+let serverUrl = config.apiUrl
 let $query = (data) => {
     let str = [];
     for (let key in data) {
