@@ -10,6 +10,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
+const version = Math.random().toString().substr(2, 8);
 let resolve = (dir) => {
     return path.join(__dirname, '..', dir)
 }
@@ -101,13 +102,11 @@ const config = {
         extractCSS,
         extractLESS,
         new webpack.NoEmitOnErrorsPlugin(),
-        // new WebpackMd5Hash(),
         new HtmlWebpackPlugin({
-            title: '金疙瘩',
+            title: '金疙瘩-中冀投资旗下智能定制理财平台',
             favicon: './src/images/logo-icon.png',
             chunks: ['ventor', 'tools', 'main'],
             inject: 'body',
-            hash: true,
             filename: path.resolve(__dirname, 'html/index.html'),
             template: './index.ejs',
             minify: {//压缩HTML文件
@@ -126,8 +125,8 @@ if (env == 'production' || env == 'test') {
     if (env === 'production') {
         config.output.publicPath = '/dist/';
     }
-    config.output.filename = '[name].[chunkhash:8].js';
-    config.output.chunkFilename = '[chunkhash:8].[id].chunk.js';
+    config.output.filename = `[name].[chunkhash:8].${version}.js`;
+    config.output.chunkFilename = `[chunkhash:8].[id].${version}.chunk.js`;
     config.plugins = (config.plugins || []).concat([
         new webpack.DefinePlugin({
             'process.env': {
