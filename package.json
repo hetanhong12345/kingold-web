@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "mint-ui": "^2.2.7",
     "qrcode": "^0.8.2",
     "vue": "^2.2.6",
