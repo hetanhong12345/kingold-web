@@ -1,6 +1,7 @@
 /**
  * Created by hekk on 2017/5/28.
  */
+
 //设置页面标题
 export let setTitle = (title) => {
     setTimeout(function () {
@@ -19,7 +20,8 @@ export let setTitle = (title) => {
     }, 0);
 };
 import $api from './api';
-import   config from './config';
+import config from './config';
+
 let baofooUrl = config.baofooActionUrl;
 let baofooCallUrl = config.baofooCallUrl;
 let merchant_id = config.merchant_id;
@@ -172,8 +174,5 @@ imgNames.map(url => {
     imgUrls[url] = require(`../images/bank/${url}.png`)
 });
 export let bankImages = imgUrls;
-let $operation = {
-    setTitle
-}
-export default $operation;
+
 

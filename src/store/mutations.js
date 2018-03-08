@@ -4,16 +4,15 @@
 'use strict';
 const mutations = {};
 
-// 个人信息
-mutations.setUserInfo = (state, data) => {
-    if (data.userUuid) {
-        Object.keys(state).forEach(key=>{
+// state
+mutations.setState = (state, data) => {
+    if (data) {
+        Object.keys(state).forEach(key => {
             if (data.hasOwnProperty(key)) {
                 state[key] = data[key];
             }
         });
 
     }
-
 };
-export default  mutations;
+export default mutations;

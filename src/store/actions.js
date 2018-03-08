@@ -7,15 +7,29 @@ const actions = {};
 import $api from '../tools/api';
 // 个人信息
 let getUserInfo = () => {
-    return $api.get('/user/getUserInfo');
+    return $api.get('/invest/getUserInfo');
 };
 actions.getUserInfo = ({commit}) => {
     return getUserInfo()
-        .then(data => {
-            if (data.code == 200) {
-                commit('setUserInfo', data.data)
+        .then(res => {
+            if (res.code == 200) {
+                commit('setState', res.data);
             }
-            return data;
+            return res;
+        });
+};
+//账户信息
+
+let getBaofoo = () => {
+    return $api.get('/invest/account/getAccountBaofoo');
+};
+actions.getBaofoo = ({commit}) => {
+    return getBaofoo()
+        .then(res => {
+            if (res.code == 200) {
+                commit('setState', res.data);
+            }
+            return res;
         });
 };
 export default actions;

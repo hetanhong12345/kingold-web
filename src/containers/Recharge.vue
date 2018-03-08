@@ -1,12 +1,14 @@
 <template>
-    <div class="blank">
-
+    <div class="recharge">
+        recharge
     </div>
+
 </template>
 
 <script>
+
     export default {
-        name: 'blank',
+        name: 'recharge',
         data() {
             return {}
         },
@@ -21,3 +23,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>

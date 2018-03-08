@@ -3,8 +3,9 @@
  */
 import 'babel-polyfill';
 import axios from 'axios';
-import config,{doEncrypt} from './config';
+import config, {doEncrypt} from './config';
 import {encryptFun, decryptFun} from './crypto';
+
 let serverUrl = config.apiUrl;
 
 axios.defaults.baseURL = serverUrl;
@@ -38,9 +39,8 @@ let $query = (data) => {
 };
 let get = (path, data = {}) => {
     data.callSystemID = '1005';
-    data.t = new Date().getTime();
     return axios({
-        url:path,
+        url: path,
         method: 'get',
         params: data,
     }).then(response => {
@@ -63,11 +63,12 @@ let get = (path, data = {}) => {
         console.error('error,--->', err);
     });
 };
-import  {logout} from './operation';
+import {logout} from './operation';
+
 let post = (path, data = {}) => {
     data.callSystemID = '1005';
     return axios({
-        url:path,
+        url: path,
         method: 'post',
         params: {
             t: new Date().getTime()

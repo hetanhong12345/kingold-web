@@ -1,5 +1,7 @@
 <template>
     <div class="index">
+        <web-header></web-header>
+
         <div class="one-warp">
             <div class="content-one">
                 <div class="content" flex>
@@ -89,35 +91,42 @@
                 </div>
             </div>
         </div>
-
+        <web-footer></web-footer>
 
     </div>
 </template>
 
 <script>
     import '../less/index.less';
+    import WebHeader from '../components/Header';
+    import WebFooter from '../components/Footer';
     import {androidUrl, iosUrl} from '../tools/config';
+
     export default {
         name: 'index',
-        data () {
+        data() {
             return {
                 bannerIndex: 1
             }
         },
-        created(){
+        created() {
             setInterval(() => {
                 this.bannerIndex = this.bannerIndex % 3 + 1;
             }, 3000);
         },
+        components: {
+            WebHeader,
+            WebFooter
+        },
         methods: {
-            download(platform){
+            download(platform) {
                 if (platform == 'ios') {
                     window.open(iosUrl, '_blank');
                 } else {
                     window.open(androidUrl, '_blank');
                 }
             },
-            toBottom(){
+            toBottom() {
                 window.scrollTo(0, 800);
             }
         }

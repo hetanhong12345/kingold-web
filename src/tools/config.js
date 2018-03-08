@@ -49,3 +49,7 @@ export const encryptIV = 'dd515f3774e20d18ae9b19ea3fa8edd3906223e2ac35c805a6d984
 export let doEncrypt = encrypt;
 export const telNumber = '400-640-3606';
 
+export let iosUrl = 'https://itunes.apple.com/cn/app/%E9%87%91%E7%96%99%E7%98%A9/id1260433533?mt=8';
+export let androidUrl = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.zjinv.kingold';
+
+

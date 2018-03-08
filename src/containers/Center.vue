@@ -1,12 +1,14 @@
 <template>
-    <div class="blank">
-
+    <div class="center">
+center
     </div>
+
 </template>
 
 <script>
+
     export default {
-        name: 'blank',
+        name: 'center',
         data() {
             return {}
         },
@@ -21,3 +23,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>
