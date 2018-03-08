@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import 'flex.css/dist/flex.css';
+import 'flex.css';
 import './less/base.less';
 import App from './App';
 import router from './router';
