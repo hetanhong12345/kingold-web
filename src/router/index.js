@@ -82,8 +82,6 @@ let beforeEach = ((to, from, next) => {
                     next()
                 }
             });
-        store.dispatch('getBaofooInfo');
-        store.dispatch('getBankInfo');
     }
 })
 routes.map(route => {

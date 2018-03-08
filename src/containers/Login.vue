@@ -1,6 +1,8 @@
 <template>
     <div class="login" flex="dir:top">
-        <div class="header" flex-box="0"></div>
+        <div class="header" flex-box="0">
+            <button class="btn-default" @click.stop="login">login</button>
+        </div>
         <div class="body-warp" flex-box="1">
             <div class="content"></div>
         </div>
@@ -20,7 +22,23 @@
         created() {
         },
         computed: {},
-        methods: {},
+        methods: {
+            login() {
+                let data = {
+                    userLoginName: '13720057698',
+                    userLoginPassword: 'hxx123'
+                };
+                this.$api.post('/invest/login', data)
+                    .then(res => {
+                        if (res.code == 200) {
+                            this.$store.dispatch('getUserInfo');
+                            this.$store.dispatch('getBaofoo');
+                            this.$router.push('/account');
+
+                        }
+                    })
+            }
+        },
         mounted() {
         },
         destroyed() {

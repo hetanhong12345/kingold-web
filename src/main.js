@@ -5,6 +5,9 @@ import App from './App';
 import router from './router';
 import store from './store';
 import * as filters from './filters';
+import $api from './tools/api';
+
+Vue.prototype.$api = $api;
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);

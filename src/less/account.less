@@ -14,8 +14,27 @@
         margin: 30px auto;
         .left-items {
             width: 200px;
-            background: #FFFFFF;
+            background: #FFF;
             box-shadow: 0 2px 4px 0 rgba(135, 135, 135, 0.5);
+            .menu-item {
+                height: 56px;
+                background: #FFF;
+                border-bottom: 1px solid #E3E3E3;
+                font-size: 20px;
+                color: #999;
+                text-decoration: none;
+                &:last-child {
+                    border-bottom: none;
+                }
+                &.menu-active {
+                    background: #E16C62;
+                    color: #fff;
+                }
+            }
+        }
+        .right-content {
+            margin-left: 60px;
+            position: relative;
         }
     }
 }
