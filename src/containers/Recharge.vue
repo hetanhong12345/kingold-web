@@ -1,26 +1,36 @@
 <template>
     <div class="recharge">
         <div class="content">
-            <div flex="cross:center" class="item">
-                <span class="star"></span>
-                <span class="info">充值方式</span>
-                <span class="txt">网银充值</span>
+            <div v-if="recharge==0">
+                <div flex="cross:center" class="item">
+                    <span class="star"></span>
+                    <span class="info">充值方式</span>
+                    <span class="txt">网银充值</span>
+                </div>
+                <div flex="cross:center" class="item">
+                    <span class="star">*</span>
+                    <span class="info">充值金额</span>
+                    <input type="text" placeholder="请输入充值金额" class="input">
+                    <span class="red a" @click.stop="showBankList">查看充值限额</span>
+                </div>
+                <div flex="cross:center" class="item">
+                    <span class="star">*</span>
+                    <span class="info">手续费</span>
+                    <span class="txt">0元</span>
+                </div>
+                <div flex="cross:center" class="item">
+                    <span class="star"></span>
+                    <span class="info"></span>
+                    <button class="next-btn">下一步</button>
+                </div>
             </div>
-            <div flex="cross:center" class="item">
-                <span class="star">*</span>
-                <span class="info">充值金额</span>
-                <input type="text" placeholder="请输入充值金额" class="input">
-                <a href="" class="red a">查看充值限额</a>
+            <div v-if="recharge==1" class="result">
+                <img src="../images/recharge/succ.png" alt="" class="img">
+                <button class="succ-btn">再充一笔</button>
             </div>
-            <div flex="cross:center" class="item">
-                <span class="star">*</span>
-                <span class="info">手续费</span>
-                <span class="txt">0元</span>
-            </div>
-            <div flex="cross:center" class="item">
-                <span class="star"></span>
-                <span class="info"></span>
-                <button class="next-btn">下一步</button>
+            <div v-if="recharge==2" class="result">
+                <img src="../images/recharge/fail.png" alt="" class="img">
+                <button class="fail-btn">重新充值</button>
             </div>
         </div>
         <div class="record">
@@ -57,7 +67,7 @@
                 <span>页</span>
                 <button class="page-btn">确认</button>
             </div>
-            <div class="tip">
+            <div class="recharge-tip">
                 <div class="tip-title">
                     <span>!</span>
                     <span>温馨提示</span>
@@ -76,16 +86,23 @@
 
 <script>
     import '../less/recharge.less';
+    import EventBus from '../tools/event-bus';
 
     export default {
         name: 'recharge',
         data() {
-            return {}
+            return {
+                recharge:1
+            }
         },
         created() {
         },
         computed: {},
-        methods: {},
+        methods: {
+            showBankList(){
+                EventBus.$emit('showBankList');
+            }
+        },
         mounted() {
         },
         destroyed() {

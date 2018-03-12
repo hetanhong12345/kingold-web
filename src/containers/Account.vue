@@ -1,5 +1,7 @@
 <template>
     <div class="account">
+        <bank-list v-if="isShowList" @close="isShowList = false"></bank-list>
+        <tip v-if="isShowTip" @close="isShowTip = false"></tip>
         <div class="header"></div>
         <div class="body-warp" flex>
             <div class="left-items" flex-box="0">
@@ -23,16 +25,26 @@
 </template>
 
 <script>
+    import EventBus from '../tools/event-bus';
+    import BankList from '../components/BankList';
+    import Tip from '../components/Tip';
     import '../less/account.less';
 
     export default {
         name: 'account',
         data() {
-            return {}
+            return {
+                isShowList: false,
+                isShowTip:false
+            }
         },
         created() {
+            EventBus.$on('showBankList', () => {
+                this.isShowList = true;
+            })
         },
         computed: {},
+        components: {BankList,Tip},
         methods: {},
         mounted() {
         },
