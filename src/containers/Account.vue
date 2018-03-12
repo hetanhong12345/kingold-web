@@ -2,7 +2,11 @@
     <div class="account">
         <bank-list v-if="isShowList" @close="isShowList = false"></bank-list>
         <tip v-if="isShowTip" @close="isShowTip = false"></tip>
-        <div class="header"></div>
+        <div class="header">
+            <div class="header-content" flex="main:right">
+                <span class="user-span" v-if="userUuid" flex="cross:center">我的账户 ( {{mobile|mobileFormat}} )</span>
+            </div>
+        </div>
         <div class="body-warp" flex>
             <div class="left-items" flex-box="0">
                 <router-link class="menu-item" :to="{path:'/account/center'}"
@@ -25,6 +29,7 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex';
     import EventBus from '../tools/event-bus';
     import BankList from '../components/BankList';
     import Tip from '../components/Tip';
@@ -35,7 +40,7 @@
         data() {
             return {
                 isShowList: false,
-                isShowTip:false
+                isShowTip: false
             }
         },
         created() {
@@ -43,8 +48,10 @@
                 this.isShowList = true;
             })
         },
-        computed: {},
-        components: {BankList,Tip},
+        computed: {
+            ...mapState(['userUuid', 'mobile'])
+        },
+        components: {BankList, Tip},
         methods: {},
         mounted() {
         },
@@ -54,6 +61,3 @@
     }
 </script>
 
-<style scoped>
-
-</style>

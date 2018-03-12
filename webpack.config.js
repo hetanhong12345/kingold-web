@@ -97,7 +97,7 @@ const config = {
                     {
                         loader: 'less-loader',
                         options: {
-                            modules: true
+                            modules: false
                         }
                     }
                 ]
@@ -111,13 +111,13 @@ const config = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true
+                            modules: false
                         }
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
-                            modules: true
+                            modules: false
                         }
                     }
                 ]

@@ -5,6 +5,7 @@ import {setTitle, logout} from '../tools/operation';
 
 const Index = () => import('../containers/Index');
 const Login = () => import('../containers/Login');
+const Blank = () => import('../containers/Blank');
 const Account = () => import('../containers/Account');
 const Center = () => import('../containers/Center');
 const Recharge = () => import('../containers/Recharge');
@@ -32,6 +33,14 @@ let routes = [
         component: Login,
         meta: {
             title: '用户登录'
+        }
+    },
+    {
+        path: '/blank',
+        name: 'blank',
+        component: Blank,
+        meta: {
+            title: '跳转中'
         }
     },
     {

@@ -9,6 +9,7 @@ const state = {
     investorGender: 0,
     isEligibleInvestorDesc: '',
     userLoginName: '',
+    mobile: '',
     userId: 0,
     userStatus: 0,
     deleteFlag: 0,
@@ -20,7 +21,6 @@ const state = {
     investorRealName: '',
     userVerifyStatusDesc: '',
     investorRiskLevelDesc: '',
-
 
 
     /*account info*/

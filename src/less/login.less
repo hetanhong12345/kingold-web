@@ -53,9 +53,10 @@
                         }
                         .label {
                             width: 80px;
-                            font-size: 18px;
+                            font-size: 16px;
                             color: @color-text;
                             margin-right: 20px;
+                            text-align: center;
                         }
                         .form-input {
                             border: 1px solid #E16C62;
@@ -67,6 +68,20 @@
                             font-size: 20px;
                             color: #fff;
                             height: 48px;
+                        }
+                        .form-code {
+                            text-align: center;
+                            letter-spacing: 2px;
+                            width: 110px;
+                            height: 48px;
+                            margin-left: 10px;
+                            font-size: 18px;
+                            color: #fff;
+                            background: @bg-main;
+                            border-radius: 2px;
+                            &.disabled {
+                                background: #aaa;
+                            }
                         }
                     }
                 }

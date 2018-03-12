@@ -1,17 +1,17 @@
 <template>
     <div class="center">
-<div class="content" flex="dir:top main:center cross:center">
-   <p class="total">7000,00</p>
-    <p class="info">可用余额（元）</p>
-    <button class="btn">充值</button>
-</div>
+        <div class="content" flex="dir:top main:center cross:center">
+            <p class="total">{{accountCashAmount|currencyFormat }}</p>
+            <p class="info">可用余额（元）</p>
+            <button class="btn" @click.stop="recharge">充值</button>
+        </div>
         <div class="content2" flex="main:justify">
-           <div>
-               <p class="num blue">
-                   10000,00
-               </p>
-               <p class="info">总资产（元）</p>
-           </div>
+            <div>
+                <p class="num blue">
+                    {{accountTotalAssets|currencyFormat}}
+                </p>
+                <p class="info">总资产（元）</p>
+            </div>
             <div>
                 <p class="num green">
                     10000,00
@@ -30,7 +30,9 @@
 </template>
 
 <script>
-import '../less/center.less';
+    import '../less/center.less';
+    import {mapState} from 'vuex';
+
     export default {
         name: 'center',
         data() {
@@ -38,8 +40,20 @@ import '../less/center.less';
         },
         created() {
         },
-        computed: {},
-        methods: {},
+        computed: {
+            ...mapState([
+                'accountTotalAssets',
+                'accountTotalInterests',
+                'accountTotalManage',
+                'accountCommission',
+                'accountCashAmount'
+            ])
+        },
+        methods: {
+            recharge() {
+                this.$router.replace('/account/recharge');
+            }
+        },
         mounted() {
         },
         destroyed() {

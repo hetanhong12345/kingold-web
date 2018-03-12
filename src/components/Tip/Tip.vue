@@ -4,19 +4,21 @@
             <img src="../../images/close.png" alt="" class="close" @click.stop="close">
             <div class="line"></div>
             <p class="txt1">请您在新打开的网上银行页面上完成付款</p>
-            <button class="tip-btn">已完成</button>
-            <p class="txt2">如果在充值过程中遇到问题请致电：400-812-XXXXXXXX</p>
+            <button class="tip-btn" @click.stop="complete">已完成</button>
+            <p class="txt2">如果在充值过程中遇到问题请致电：{{telNumber}}</p>
         </div>
     </div>
 </template>
 
 <script>
+    import {telNumber} from '../../tools/config';
+    import EventBus from '../../tools/event-bus';
     import './tip.less';
 
     export default {
         name: 'tip',
         data() {
-            return {}
+            return {telNumber}
         },
         created() {
         },
@@ -24,6 +26,10 @@
         methods: {
             close() {
                 this.$emit('close')
+            },
+            complete() {
+                this.close();
+                EventBus.$emit('complete');
             }
         },
         destroyed() {

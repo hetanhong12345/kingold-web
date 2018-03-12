@@ -8,6 +8,15 @@
         height: @header-height;
         background: #fff;
         box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .1);
+        .header-content {
+            width: @warp-width;
+            height: 100%;
+            margin: auto;
+            .user-span {
+                font-size: 16px;
+                color: #EF7446;
+            }
+        }
     }
     .body-warp {
         width: @warp-width;
@@ -16,6 +25,8 @@
             width: 200px;
             background: #FFF;
             box-shadow: 0 2px 4px 0 rgba(135, 135, 135, 0.5);
+            min-height: 200px;
+            max-height: 400px;
             .menu-item {
                 height: 56px;
                 background: #FFF;

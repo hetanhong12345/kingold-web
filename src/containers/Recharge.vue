@@ -10,7 +10,9 @@
                 <div flex="cross:center" class="item">
                     <span class="star">*</span>
                     <span class="info">充值金额</span>
-                    <input type="text" placeholder="请输入充值金额" class="input">
+                    <input type="text" placeholder="请输入充值金额"
+                           maxlength="12" @keyup="myKeyup"
+                           class="input" v-model="rechargeMoney">
                     <span class="red a" @click.stop="showBankList">查看充值限额</span>
                 </div>
                 <div flex="cross:center" class="item">
@@ -21,7 +23,7 @@
                 <div flex="cross:center" class="item">
                     <span class="star"></span>
                     <span class="info"></span>
-                    <button class="next-btn">下一步</button>
+                    <button class="btn-primary next-btn" @click.stop="nextStep">下一步</button>
                 </div>
             </div>
             <div v-if="recharge==1" class="result">
@@ -87,23 +89,85 @@
 <script>
     import '../less/recharge.less';
     import EventBus from '../tools/event-bus';
+    import {currencyInputValidate, submitRecharge} from '../tools/operation';
+    import {Message} from 'element-ui';
 
+    let timer = null;
     export default {
         name: 'recharge',
         data() {
             return {
-                recharge:1
+                recharge: 0, // 0:充值 ，1：充值成功，2：充值失败
+                disabled: true,
+                rechargeMoney: '',//充值金额
+                handlingCharge: 0,//手续费
             }
         },
         created() {
         },
-        computed: {},
+        computed: {
+            amount: function () {
+                if (this.rechargeMoney) {
+                    return Number(this.rechargeMoney) + Number(this.handlingCharge);
+                }
+                return 0;
+            }
+        },
         methods: {
-            showBankList(){
+            // 银行限额列表
+            showBankList() {
                 EventBus.$emit('showBankList');
+            },
+            nextStep() {
+                if (!this.rechargeMoney) {
+                    Message.warning('请输入充值金额');
+                    return false;
+                }
+                if (Number(this.rechargeMoney) < 0) {
+                    Message.warning('请输入正确金额');
+                    return false;
+                }
+                if (this.disabled) {
+                    return false
+                }
+                if (this.amount >= 1000000000000) {
+                    Message.warning('充值金额加手续费不要超过10000亿元！');
+                    return false;
+                }
+                let newWind = window.open('/blank', '_KingGoldBlank');
+                return this.$api.post('/invest/trade/recharge', {amount: this.amount})
+                    .then(res => {
+                        if (res.code != 200) {
+                            newWind.close();
+                            Message.error(res.msg);
+                            return false;
+                        }
+                        let params = res.data || {};
+                        params.amount = this.amount;
+                        params.userId = this.$store.state.userId;
+                        submitRecharge(params);
+                    })
+            },
+            myKeyup() {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    this.rechargeMoney = currencyInputValidate(this.rechargeMoney);
+                    if (this.rechargeMoney) {
+                        this.disabled = false;
+                    } else {
+                        this.disabled = true;
+                    }
+                }, 100);
+            },
+            // 充值完成
+            complete() {
+
             }
         },
         mounted() {
+            EventBus.$on('complete', this.complete);
         },
         destroyed() {
 
