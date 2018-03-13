@@ -25,7 +25,10 @@
                             <input id="imgCode" type="text" class="form-input"
                                    style="width: 120px"
                                    v-model="inputCode" flex-box="0">
-                            <div flex-box="0" class="form-code" flex="main:center cross:center">{{imageCode}}</div>
+                            <div flex-box="0" class="form-code"
+                                 @click.stop="getImageCode"
+                                 flex="main:center cross:center">{{imageCode}}
+                            </div>
                         </div>
                         <div class="form-item" flex v-show="loginType==1">
                             <label for="smsCode" class="label" flex-box="0" flex="main:center cross:center">
@@ -34,7 +37,10 @@
                             <input id="smsCode" type="text" class="form-input"
                                    style="width: 120px"
                                    v-model="inputCode" flex-box="0">
-                            <div flex-box="0" class="form-code" flex="main:center cross:center">发送短信</div>
+                            <div flex-box="0" class="form-code"
+                                 @click.stop="getSmsCode"
+                                 flex="main:center cross:center">发送短信
+                            </div>
                         </div>
 
                         <div class="form-item" flex v-if="loginType==0">
@@ -92,6 +98,18 @@
         methods: {
             switchType() {
                 this.loginType = (this.loginType + 1) % 2
+            },
+            getImageCode() {
+                return this.$api.get('/imageCode')
+                    .then(res => {
+                        if (res.code == 200) {
+                            let {data} = res;
+                            this.imageCode = data;
+                        }
+                    });
+            },
+            getSmsCode() {
+
             },
             login() {
                 if (this.loading) {

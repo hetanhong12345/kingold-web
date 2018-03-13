@@ -6,7 +6,10 @@ import router from './router';
 import store from './store';
 import * as filters from './filters';
 import $api from './tools/api';
+import {telNumber} from './tools/config';
+
 Vue.prototype.$api = $api;
+Vue.prototype.telNumber = telNumber;
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key]);

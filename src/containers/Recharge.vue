@@ -1,6 +1,6 @@
 <template>
     <div class="recharge">
-        <div class="content">
+        <div class="content" ref="content">
             <div v-if="recharge==0">
                 <div flex="cross:center" class="item">
                     <span class="star"></span>
@@ -28,11 +28,11 @@
             </div>
             <div v-if="recharge==1" class="result">
                 <img src="../images/recharge/succ.png" alt="" class="img">
-                <button class="succ-btn">再充一笔</button>
+                <button class="succ-btn" @click.stop="onceMore">再充一笔</button>
             </div>
             <div v-if="recharge==2" class="result">
                 <img src="../images/recharge/fail.png" alt="" class="img">
-                <button class="fail-btn">重新充值</button>
+                <button class="fail-btn" @click.stop="rechargeAgain">重新充值</button>
             </div>
         </div>
         <div class="record">
@@ -43,38 +43,30 @@
                 <span class="border-left">充值方式</span>
                 <span class="border-left">状态</span>
             </div>
-            <div class="table-line item" flex="box:mean">
-                <span class="grey">2018.01.12 12:16:21</span>
-                <span class="black border-left">100</span>
-                <span class="black border-left">网银充值</span>
-                <span class=" blue border-left">处理中</span>
+            <div class="table-line item" flex="box:mean" v-for="(re,index) in rechargeList" :key="index">
+                <span class="grey">{{re.createTime|timeFormater('yyyy-MM-dd hh:mm:ss')}}</span>
+                <span class="black border-left">{{re.rechargeAmount|currencyFormat}}</span>
+                <span class="black border-left">{{re.payMethod==1?'快捷支付':'网银支付'}}</span>
+                <span class="blue border-left"
+                      :class="{'blue':re.rechargeStatus==0,'green':re.rechargeStatus==1,'red':re.rechargeStatus==2}">
+                    {{re.rechargeStatus==0?'处理中':(re.rechargeStatus==1?'成功':'失败')}}
+                </span>
             </div>
-            <div class="table-line item" flex="box:mean">
-                <span class="grey">2018.01.12 12:16:21</span>
-                <span class="black border-left">100</span>
-                <span class="black border-left">网银充值</span>
-                <span class="green border-left">处理中</span>
-            </div>
-            <div class="pagination" flex="main:center cross:center">
-                <span class="txt">首页</span>
-                <span class="txt">&lt&lt</span>
-                <div class="pages" flex>
-                    <span class="num">1</span>
-                    <span class="num">2</span>
-                </div>
-                <span class="txt">&gt&gt</span>
-                <span class="txt">尾页</span>
-                <span class="margin-left">跳转</span>
-                <input placeholder="22" class="page-input">
-                <span>页</span>
-                <button class="page-btn">确认</button>
-            </div>
+
+            <el-pagination
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-size="pageSize"
+                layout="total, prev, pager, next, jumper"
+                :total="total"
+                class="pagination" flex="main:center cross:center">
+            </el-pagination>
             <div class="recharge-tip">
                 <div class="tip-title">
                     <span>!</span>
                     <span>温馨提示</span>
                 </div>
-                <p>1、如果在充值过程中遇到问题请致电：400-812-XXXXXXXX；</p>
+                <p>1、如果在充值过程中遇到问题请致电：{{telNumber}}；</p>
                 <p>2、请使用借记卡充值，信用卡无法充值；</p>
                 <p>3、开通网银方法：</p>
                 <p style="margin-left: 14px">（1）携带本人身份证到银行柜台办理。（2）登录网上银行办理；</p>
@@ -87,10 +79,13 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import '../less/recharge.less';
     import EventBus from '../tools/event-bus';
     import {currencyInputValidate, submitRecharge} from '../tools/operation';
-    import {Message} from 'element-ui';
+    import {Message, Loading, Pagination} from 'element-ui';
+
+    Vue.use(Pagination);
 
     let timer = null;
     export default {
@@ -101,9 +96,16 @@
                 disabled: true,
                 rechargeMoney: '',//充值金额
                 handlingCharge: 0,//手续费
+                orderBillCode: '', //充值单
+                loadingInstance: null,
+                currentPage: 1,
+                pageSize: 10,
+                total: 0,
+                rechargeList: []
             }
         },
         created() {
+
         },
         computed: {
             amount: function () {
@@ -118,6 +120,30 @@
             showBankList() {
                 EventBus.$emit('showBankList');
             },
+            // 充值状态
+            checkStatus() {
+                let {orderBillCode} = this;
+                return this.$api.get('/invest/trade/rechargeStatus', {orderBillCode})
+                    .then(res => {
+                        if (res.code == 200) {
+                            let {data} = res;
+                            this.recharge = data.status;
+                            if (data.status == 0) {
+                                setTimeout(this.checkStatus, 3000);
+                                return false
+                            }
+                            if (this.currentPage == 1) {
+                                this.getRechargeList();
+                            }
+                            this.loadingInstance.close();
+                        } else {
+                            Message.error(res.msg);
+                            this.loadingInstance.close();
+
+                        }
+                    });
+            },
+            // baofoo充值
             nextStep() {
                 if (!this.rechargeMoney) {
                     Message.warning('请输入充值金额');
@@ -143,11 +169,15 @@
                             return false;
                         }
                         let params = res.data || {};
+                        this.orderBillCode = params.orderBillCode; //充值单，待查询
+
                         params.amount = this.amount;
                         params.userId = this.$store.state.userId;
                         submitRecharge(params);
+                        EventBus.$emit('showTip', '请您在新打开的网上银行页面上完成付款');
                     })
             },
+            // 输入框字符过滤
             myKeyup() {
                 if (timer) {
                     clearTimeout(timer);
@@ -163,11 +193,47 @@
             },
             // 充值完成
             complete() {
-
+                this.loadingInstance = Loading.service({
+                    target: this.$refs.content,
+                    text: '正在查询充值状态...',
+                    background: 'rgba(0, 0, 0, 0.4)'
+                });
+                this.checkStatus();
+            },
+            // 再充一笔
+            onceMore() {
+                this.recharge = 0;
+                this.rechargeMoney = '';
+            },
+            //重新充值
+            rechargeAgain() {
+                this.recharge = 0;
+            },
+            // 分页改变
+            handleCurrentChange(currentPage) {
+                this.currentPage = currentPage;
+                this.getRechargeList();
+            },
+            // 充值列表
+            getRechargeList() {
+                let startRow = this.pageSize * (this.currentPage - 1);
+                let {pageSize} = this;
+                return this.$api.get('/invest/trade/rechargeList', {
+                    startRow,
+                    pageSize
+                }).then(res => {
+                    if (res.code == 200) {
+                        let {data} = res;
+                        this.total = data.count;
+                        this.rechargeList = data.list;
+                    }
+                })
             }
+
         },
         mounted() {
             EventBus.$on('complete', this.complete);
+            this.getRechargeList();
         },
         destroyed() {
 

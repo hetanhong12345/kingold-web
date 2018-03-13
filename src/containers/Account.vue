@@ -1,10 +1,11 @@
 <template>
     <div class="account">
         <bank-list v-if="isShowList" @close="isShowList = false"></bank-list>
-        <tip v-if="isShowTip" @close="isShowTip = false"></tip>
+        <tip v-if="isShowTip" :tipTitle="tipTitle" @close="isShowTip = false"></tip>
         <div class="header">
             <div class="header-content" flex="main:right">
                 <span class="user-span" v-if="userUuid" flex="cross:center">我的账户 ( {{mobile|mobileFormat}} )</span>
+                <span class="user-logout" v-if="userUuid" flex="cross:center" @click.stop="logout">退出</span>
             </div>
         </div>
         <div class="body-warp" flex>
@@ -46,13 +47,26 @@
         created() {
             EventBus.$on('showBankList', () => {
                 this.isShowList = true;
-            })
+            });
+            EventBus.$on('showTip', (title) => {
+                this.isShowTip = true;
+                this.tipTitle = title;
+            });
         },
         computed: {
             ...mapState(['userUuid', 'mobile'])
         },
         components: {BankList, Tip},
-        methods: {},
+        methods: {
+            logout() {
+                this.$api.post('/invest/logout')
+                    .then(res => {
+                        if (res.code == 200) {
+                            window.location.replace('/login');
+                        }
+                    })
+            }
+        },
         mounted() {
         },
         destroyed() {

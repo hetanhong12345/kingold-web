@@ -26,8 +26,8 @@ const state = {
     /*account info*/
     accountTotalAssets: '',// 资金总额
     accountTotalInterests: '',// 收益总额
-    accountTotalManage: '',// 管理资产总额
-    accountCommission: '',// 我的佣金总额
+    investmentAmount: '',// 再投总额
+    accountFreezeAmount: '',// 冻结金额
     accountCashAmount: '' // 可提现金额
 
 };

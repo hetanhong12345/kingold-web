@@ -11,7 +11,7 @@
 <script>
     import './footer.less';
     export default {
-        name: 'footer',
+        name: 'web-footer',
         data(){
             return {}
         },

@@ -15,7 +15,7 @@
     import {mapState} from 'vuex';
 
     export default {
-        name: 'header',
+        name: 'web-header',
         data() {
             return {}
         },

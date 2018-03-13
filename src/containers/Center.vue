@@ -14,13 +14,13 @@
             </div>
             <div>
                 <p class="num green">
-                    10000,00
+                    {{accountFreezeAmount|currencyFormat}}
                 </p>
                 <p class="info">冻结金额（元）</p>
             </div>
             <div>
                 <p class="num red">
-                    10000,00
+                    {{investmentAmount|currencyFormat}}
                 </p>
                 <p class="info">在投金额（元）</p>
             </div>
@@ -43,10 +43,9 @@
         computed: {
             ...mapState([
                 'accountTotalAssets',
-                'accountTotalInterests',
-                'accountTotalManage',
-                'accountCommission',
-                'accountCashAmount'
+                'accountFreezeAmount',
+                'accountCashAmount',
+                'investmentAmount'
             ])
         },
         methods: {
