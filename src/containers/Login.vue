@@ -15,7 +15,7 @@
                                 手机号
                             </label>
                             <input flex-box="1" type="text" id="mobile"
-                                   placeholder="请输入手机号"
+                                   placeholder="请输入手机号" maxlength="11"
                                    v-model="userLoginName" class="form-input">
                         </div>
                         <div class="form-item" flex v-show="imageCode">
@@ -23,7 +23,7 @@
                                 图形验证码
                             </label>
                             <input id="imgCode" type="text" class="form-input"
-                                   style="width: 120px"
+                                   style="width: 120px" maxlength="4"
                                    v-model="inputCode" flex-box="0">
                             <div flex-box="0" class="form-code"
                                  @click.stop="getImageCode"
@@ -35,7 +35,7 @@
                                 验证码
                             </label>
                             <input id="smsCode" type="text" class="form-input"
-                                   style="width: 120px"
+                                   style="width: 120px" maxlength="6"
                                    v-model="smsCode" flex-box="0">
                             <div flex-box="0" class="form-code"
                                  @click.stop="getSmsCode"
@@ -51,7 +51,7 @@
                                 密码
                             </label>
                             <input flex-box="1" type="password" id="password"
-                                   placeholder="请输入密码"
+                                   placeholder="请输入密码" maxlength="20"
                                    v-model="userLoginPassword"
                                    class="form-input">
                         </div>
