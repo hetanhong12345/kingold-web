@@ -36,10 +36,13 @@
                             </label>
                             <input id="smsCode" type="text" class="form-input"
                                    style="width: 120px"
-                                   v-model="inputCode" flex-box="0">
+                                   v-model="smsCode" flex-box="0">
                             <div flex-box="0" class="form-code"
                                  @click.stop="getSmsCode"
-                                 flex="main:center cross:center">发送短信
+                                 flex="main:center cross:center" v-if="verifyTimeLeft<1">{{smsText}}
+                            </div>
+                            <div flex-box="0" class="form-code disabled"
+                                 flex="main:center cross:center" v-else>{{verifyTimeLeft}}
                             </div>
                         </div>
 
@@ -89,7 +92,10 @@
                 loading: false,
                 imageCode: '',
                 inputCode: '',
-                smsText: '发送短信'
+                smsCode: '',
+                smsText: '发送短信',
+                timer: null,
+                verifyTimeLeft: 0
             }
         },
         created() {
@@ -109,11 +115,53 @@
                     });
             },
             getSmsCode() {
+                if (this.imageCode && !this.inputCode) {
+                    Message.warning('请输入图片验证码');
+                    return false;
+                }
+                let investorMobile = this.userLoginName;
+                let bussType = 4;
+                let data = {investorMobile, bussType};
+                if (this.imageCode) {
+                    data.imageCode = this.inputCode;
+                }
+                this.verifyTimeLeft = 60;
+                this.timeCount();
+                this.smsText = '重新发送';
+                return this.$api.post('/invest/sendVerifyCode', data)
+                    .then(res => {
+                        if (res.code == 200) {
+                            //
+                            return false;
+                        }
+                        if (res.data && res.data.imageCode) {
+                            this.imageCode = res.data.imageCode;
+                        }
+                        Message.error(res.msg);
+                        this.clearTimeCount();
+                    })
 
+            },
+            timeCount() {
+                this.timer = setTimeout(() => {
+                    this.verifyTimeLeft = this.verifyTimeLeft - 1;
+                    if (this.verifyTimeLeft >= 1) {
+                        this.timeCount();
+                    }
+                }, 1000);
+            },
+            clearTimeCount() {
+                this.verifyTimeLeft = 0;
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                }
             },
             login() {
                 if (this.loading) {
                     return false;
+                }
+                if (this.loginType == 1) {
+                    return this.smsLogin();
                 }
                 let {userLoginName, userLoginPassword} = this;
                 if (!userLoginName) {
@@ -172,6 +220,42 @@
                             Message.error(res.msg);
                         }
                     })
+            },
+            smsLogin() {
+                let {userLoginName, smsCode} = this;
+                if (!userLoginName) {
+                    Message.warning('请输入手机号码');
+                    return false;
+                }
+                if (!isPhone(userLoginName)) {
+                    Message.warning('请输入正确的11位手机号码');
+                    return false;
+                }
+                if (!smsCode) {
+                    Message.warning('请输入短信验证码');
+                    return false;
+                }
+                let data = {smsCode, investorMobile: userLoginName};
+                return this.$api.post('/invest/smsLogin', data)
+                    .then(res => {
+                        this.loading = false;
+                        if (res.code == 200) {
+                            this.$store.dispatch('getUserInfo');
+                            this.$store.dispatch('getBaofoo');
+                            this.$router.push('/account');
+                            return false
+                        }
+                        if (res.data && res.data.imageCode) {
+                            this.imageCode = res.data.imageCode;
+                            Message.error(res.msg);
+                            return false
+                        }
+
+                        else {
+                            Message.error(res.msg);
+                        }
+                    })
+
             }
         },
         mounted() {
