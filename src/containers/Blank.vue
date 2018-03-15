@@ -1,5 +1,8 @@
 <template>
     <div class="blank">
+         <div flex="main:center cross:centrer" style="padding-top: 40px">
+             跳转中...
+         </div>
 
     </div>
 </template>

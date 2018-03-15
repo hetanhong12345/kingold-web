@@ -45,13 +45,7 @@
             }
         },
         created() {
-            EventBus.$on('showBankList', () => {
-                this.isShowList = true;
-            });
-            EventBus.$on('showTip', (title) => {
-                this.isShowTip = true;
-                this.tipTitle = title;
-            });
+
         },
         computed: {
             ...mapState(['userUuid', 'mobile'])
@@ -68,6 +62,13 @@
             }
         },
         mounted() {
+            EventBus.$on('showBankList', () => {
+                this.isShowList = true;
+            });
+            EventBus.$on('showTip', (title) => {
+                this.isShowTip = true;
+                this.tipTitle = title;
+            });
         },
         destroyed() {
 

@@ -40,7 +40,7 @@ let routes = [
         name: 'blank',
         component: Blank,
         meta: {
-            title: '跳转中'
+            title: '跳转中...'
         }
     },
     {
