@@ -1,5 +1,5 @@
 <template>
-    <div class="account">
+    <div class="account" flex="dir:top">
         <bank-list v-if="isShowList" @close="isShowList = false"></bank-list>
         <tip v-if="isShowTip" :tipTitle="tipTitle" @close="isShowTip = false"></tip>
         <div class="header">
@@ -7,10 +7,11 @@
                 <img flex-box="0" class="logo" src="../images/logo.png" alt="logo" @click.stop="$router.push('/index')">
                 <div flex-box="1" class="header-text">深圳买单互联网金融服务有限公司</div>
                 <span flex-box="0" class="user-span" v-if="userUuid" flex="cross:center">我的账户 ( {{mobile|mobileFormat}} )</span>
-                <span flex-box="0" class="user-logout" v-if="userUuid" flex="cross:center" @click.stop="logout">退出</span>
+                <span flex-box="0" class="user-logout" v-if="userUuid" flex="cross:center"
+                      @click.stop="logout">退出</span>
             </div>
         </div>
-        <div class="body-warp" flex>
+        <div class="body-warp" flex flex-box="1">
             <div class="left-items" flex-box="0">
                 <router-link class="menu-item" :to="{path:'/account/center'}"
                              active-class="menu-active"
@@ -26,7 +27,7 @@
             </div>
 
         </div>
-
+        <web-footer flex-box="0"></web-footer>
     </div>
 
 </template>
@@ -36,6 +37,8 @@
     import EventBus from '../tools/event-bus';
     import BankList from '../components/BankList';
     import Tip from '../components/Tip';
+    import WebFooter from '../components/Footer';
+
     import '../less/account.less';
 
     export default {
@@ -52,7 +55,7 @@
         computed: {
             ...mapState(['userUuid', 'mobile'])
         },
-        components: {BankList, Tip},
+        components: {BankList, Tip, WebFooter},
         methods: {
             logout() {
                 this.$api.post('/invest/logout')

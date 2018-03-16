@@ -158,7 +158,7 @@ if (env == 'production' || env == 'test') {
         config.output.publicPath = '/dist/';
     }
     config.output.filename = `[name].[chunkhash:8].${version}.js`;
-    config.output.chunkFilename = `[chunkhash:8].[id].chunk.js`;
+    config.output.chunkFilename = `[chunkhash:8].[id].${version}.js`;
     config.plugins = (config.plugins || []).concat([
         new webpack.DefinePlugin({
             'process.env': {
