@@ -1,7 +1,6 @@
 <template>
     <div class="login" flex="dir:top">
-        <div class="header" flex-box="0">
-        </div>
+        <web-header flex-box="0"></web-header>
         <div class="body-warp" flex-box="1" flex>
             <div class="content" flex="main:center cross:center">
                 <div class="text-warp" flex="main:justify cross:center">
@@ -71,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer" flex-box="0"></div>
+        <web-footer flex-box="0"></web-footer>
 
     </div>
 
@@ -80,6 +79,10 @@
 <script>
     import '../less/login.less';
     import {isPassword, isPhone} from "../tools/operation";
+    import WebHeader from '../components/Header';
+
+    import WebFooter from '../components/Footer';
+
     import {Message} from 'element-ui';
 
     export default {
@@ -97,6 +100,9 @@
                 timer: null,
                 verifyTimeLeft: 0
             }
+        },
+        components:{
+            WebFooter,WebHeader
         },
         created() {
         },
@@ -165,11 +171,11 @@
                 }
                 let {userLoginName, userLoginPassword} = this;
                 if (!userLoginName) {
-                    Message.warning('请输入手机号码');
+                    Message.warning('请输入正确的11位手机号码');
                     return false;
                 }
                 if (!userLoginPassword) {
-                    Message.warning('请输入登录密码');
+                    Message.warning('请输入正确的登录密码（6~20位数字和字母');
 
                     return false;
                 }
@@ -179,7 +185,7 @@
                     return false;
                 }
                 if (!isPassword(userLoginPassword)) {
-                    Message.warning('请输入正确的登录密码（6~20位数字和字母）');
+                    Message.warning('请输入正确的登录密码（6~20位数字和字母');
 
                     return false;
                 }
@@ -236,6 +242,7 @@
                     return false;
                 }
                 let data = {smsCode, investorMobile: userLoginName};
+                this.loading = true;
                 return this.$api.post('/invest/smsLogin', data)
                     .then(res => {
                         this.loading = false;

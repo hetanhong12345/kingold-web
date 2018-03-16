@@ -3,9 +3,11 @@
         <bank-list v-if="isShowList" @close="isShowList = false"></bank-list>
         <tip v-if="isShowTip" :tipTitle="tipTitle" @close="isShowTip = false"></tip>
         <div class="header">
-            <div class="header-content" flex="main:right">
-                <span class="user-span" v-if="userUuid" flex="cross:center">我的账户 ( {{mobile|mobileFormat}} )</span>
-                <span class="user-logout" v-if="userUuid" flex="cross:center" @click.stop="logout">退出</span>
+            <div class="header-content" flex>
+                <img flex-box="0" class="logo" src="../images/logo.png" alt="logo" @click.stop="$router.push('/index')">
+                <div flex-box="1" class="header-text">深圳买单互联网金融服务有限公司</div>
+                <span flex-box="0" class="user-span" v-if="userUuid" flex="cross:center">我的账户 ( {{mobile|mobileFormat}} )</span>
+                <span flex-box="0" class="user-logout" v-if="userUuid" flex="cross:center" @click.stop="logout">退出</span>
             </div>
         </div>
         <div class="body-warp" flex>

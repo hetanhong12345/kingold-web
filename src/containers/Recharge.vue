@@ -84,6 +84,7 @@
     import EventBus from '../tools/event-bus';
     import {currencyInputValidate, submitRecharge} from '../tools/operation';
     import {Message, Loading, Pagination} from 'element-ui';
+    import {mapState} from 'vuex';
 
     Vue.use(Pagination);
 
@@ -99,7 +100,7 @@
                 orderBillCode: '', //充值单
                 loadingInstance: null,
                 currentPage: 1,
-                pageSize: 10,
+                pageSize: 5,
                 total: 0,
                 rechargeList: []
             }
@@ -108,6 +109,7 @@
 
         },
         computed: {
+            ...mapState(['userVerifyStatus']),
             amount: function () {
                 if (this.rechargeMoney) {
                     return Number(this.rechargeMoney) + Number(this.handlingCharge);
@@ -134,17 +136,21 @@
                             }
                             if (this.currentPage == 1) {
                                 this.getRechargeList();
+                                this.$store.dispatch('getBaofoo');
                             }
                             this.loadingInstance.close();
                         } else {
                             Message.error(res.msg);
                             this.loadingInstance.close();
-
                         }
                     });
             },
             // baofoo充值
             nextStep() {
+                if (this.userVerifyStatus < 9) {
+                    EventBus.$emit('showTip', '请先到金疙瘩APP完成开户绑卡后方可进行网银充值！');
+                    return false;
+                }
                 if (!this.rechargeMoney) {
                     Message.warning('请输入充值金额');
                     return false;
@@ -155,6 +161,10 @@
                 }
                 if (this.disabled) {
                     return false
+                }
+                if (this.amount < 5) {
+                    Message.warning('充值金额不要低于5元！');
+                    return false;
                 }
                 if (this.amount >= 1000000000000) {
                     Message.warning('充值金额加手续费不要超过10000亿元！');
@@ -193,12 +203,18 @@
             },
             // 充值完成
             complete() {
-                this.loadingInstance = Loading.service({
-                    target: this.$refs.content,
-                    text: '正在查询充值状态...',
-                    background: 'rgba(0, 0, 0, 0.4)'
-                });
-                this.checkStatus();
+                if (this.orderBillCode) {
+                    this.loadingInstance = Loading.service({
+                        target: this.$refs.content,
+                        text: '正在查询充值状态...',
+                        background: 'rgba(0, 0, 0, 0.4)'
+                    });
+                    this.checkStatus();
+                }
+                else {
+                    this.$store.dispatch('getUserInfo');
+                }
+
             },
             // 再充一笔
             onceMore() {
