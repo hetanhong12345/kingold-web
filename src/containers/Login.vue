@@ -174,18 +174,19 @@
                     Message.warning('请输入正确的11位手机号码');
                     return false;
                 }
-                if (!userLoginPassword) {
-                    Message.warning('请输入正确的登录密码（6~20位数字和字母');
-
-                    return false;
-                }
                 if (!isPhone(userLoginName)) {
                     Message.warning('请输入正确的11位手机号码');
 
                     return false;
                 }
+                if (!userLoginPassword) {
+                    Message.warning('请输入正确的登录密码（6~20位数字和字母）');
+
+                    return false;
+                }
+
                 if (!isPassword(userLoginPassword)) {
-                    Message.warning('请输入正确的登录密码（6~20位数字和字母');
+                    Message.warning('请输入正确的登录密码（6~20位数字和字母）');
 
                     return false;
                 }
