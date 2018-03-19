@@ -101,8 +101,8 @@
                 verifyTimeLeft: 0
             }
         },
-        components:{
-            WebFooter,WebHeader
+        components: {
+            WebFooter, WebHeader
         },
         created() {
         },
@@ -123,6 +123,15 @@
             getSmsCode() {
                 if (this.imageCode && !this.inputCode) {
                     Message.warning('请输入图片验证码');
+                    return false;
+                }
+                let {userLoginName} = this;
+                if (!userLoginName) {
+                    Message.warning('请输入正确的11位手机号码');
+                    return false;
+                }
+                if (!isPhone(userLoginName)) {
+                    Message.warning('请输入正确的11位手机号码');
                     return false;
                 }
                 let investorMobile = this.userLoginName;
@@ -166,9 +175,7 @@
                 if (this.loading) {
                     return false;
                 }
-                if (this.loginType == 1) {
-                    return this.smsLogin();
-                }
+
                 let {userLoginName, userLoginPassword} = this;
                 if (!userLoginName) {
                     Message.warning('请输入正确的11位手机号码');
@@ -176,8 +183,10 @@
                 }
                 if (!isPhone(userLoginName)) {
                     Message.warning('请输入正确的11位手机号码');
-
                     return false;
+                }
+                if (this.loginType == 1) {
+                    return this.smsLogin();
                 }
                 if (!userLoginPassword) {
                     Message.warning('请输入正确的登录密码（6~20位数字和字母）');
@@ -208,7 +217,7 @@
                         if (res.code == 200) {
                             this.$store.dispatch('getUserInfo');
                             this.$store.dispatch('getBaofoo');
-                            this.$router.push('/account');
+                            this.$router.replace('/account');
                             return false
 
                         }
@@ -230,14 +239,6 @@
             },
             smsLogin() {
                 let {userLoginName, smsCode} = this;
-                if (!userLoginName) {
-                    Message.warning('请输入手机号码');
-                    return false;
-                }
-                if (!isPhone(userLoginName)) {
-                    Message.warning('请输入正确的11位手机号码');
-                    return false;
-                }
                 if (!smsCode) {
                     Message.warning('请输入短信验证码');
                     return false;

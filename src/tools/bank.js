@@ -97,8 +97,8 @@ let banks = [
         code: 'xingye',
         payTypes: [{
             typeName: '手机动态密码版',
-            perValue: '初始5000，可至网点加大',
-            dayValue: '日累积范围内无限额'
+            perValue: '日累积范围内无限额',
+            dayValue: '初始5000，可至网点加大'
         }, {
             typeName: 'U盾',
             perValue: '40万',
@@ -171,7 +171,7 @@ let banks = [
         }, {
             typeName: '专业版',
             perValue: '500万',
-            dayValue: '1000万'
+            dayValue: '1000万以上'
         }]
     },
     {

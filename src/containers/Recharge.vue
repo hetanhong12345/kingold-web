@@ -28,11 +28,11 @@
             </div>
             <div v-if="recharge==1" class="result">
                 <img src="../images/recharge/succ.png" alt="" class="img">
-                <button class="succ-btn" @click.stop="onceMore">再充一笔</button>
+                <button class="succ-btn btn-primary" @click.stop="onceMore">再充一笔</button>
             </div>
             <div v-if="recharge==2" class="result">
                 <img src="../images/recharge/fail.png" alt="" class="img">
-                <button class="fail-btn" @click.stop="rechargeAgain">重新充值</button>
+                <button class="fail-btn btn-primary" @click.stop="rechargeAgain">重新充值</button>
             </div>
         </div>
         <div class="record">
@@ -166,8 +166,8 @@
                     Message.warning('充值金额不要低于5元！');
                     return false;
                 }
-                if (this.amount >= 1000000000000) {
-                    Message.warning('充值金额加手续费不要超过10000亿元！');
+                if (this.amount >= 500000) {
+                    Message.warning('充值金额加手续费不要超过50万元！');
                     return false;
                 }
                 let newWind = window.open('/blank', '_KingGoldBlank');
