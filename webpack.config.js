@@ -150,13 +150,9 @@ const config = {
     ],
     devtool: '#eval-source-map'
 }
-if (env == 'production' || env == 'test') {
+if (env == 'production' || env == 'stage' || env == 'test') {
     console.log('------->', env)
     config.devtool = '';
-    config.output.publicPath = '/dist/';
-    if (env === 'production') {
-        config.output.publicPath = '/dist/';
-    }
     config.output.filename = `[name].[chunkhash:8].${version}.js`;
     config.output.chunkFilename = `[chunkhash:8].[id].${version}.js`;
     config.plugins = (config.plugins || []).concat([
