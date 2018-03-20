@@ -252,7 +252,7 @@
                         if (res.code == 200) {
                             this.$store.dispatch('getUserInfo');
                             this.$store.dispatch('getBaofoo');
-                            this.$router.push('/account');
+                            this.$router.replace('/account');
                             return false
                         }
                         if (res.data && res.data.imageCode) {
