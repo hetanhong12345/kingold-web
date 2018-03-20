@@ -204,6 +204,9 @@
             // 充值完成
             complete() {
                 if (this.orderBillCode) {
+                    if (this.loadingInstance) {
+                        this.loadingInstance.close();
+                    }
                     this.loadingInstance = Loading.service({
                         target: this.$refs.content,
                         text: '正在查询充值状态...',
