@@ -258,6 +258,7 @@
             if (timer) {
                 clearTimeout(timer);
             }
+            EventBus.$off('complete');
         }
     }
 </script>

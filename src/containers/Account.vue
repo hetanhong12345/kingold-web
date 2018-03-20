@@ -76,7 +76,8 @@
             });
         },
         destroyed() {
-
+            EventBus.$off('showBankList');
+            EventBus.$off('showTip');
         }
     }
 </script>
