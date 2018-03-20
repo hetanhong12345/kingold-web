@@ -49,7 +49,8 @@ button {
 
 input, textarea {
     text-rendering: auto;
-    color: initial;
+    color: @color-text;
+    font-size: 16px;
     letter-spacing: normal;
     word-spacing: normal;
     text-transform: none;
@@ -63,8 +64,22 @@ input, textarea {
     -webkit-appearance: none;
 }
 
-input[placeholder], [placeholder] {
-    color: @color-text-gray !important;
+
+input::-webkit-input-placeholder { /* WebKit browsers */
+    color: @color-text-gray;
+    font-size: 14px;
+}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: @color-text-gray;
+    font-size: 14px;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: @color-text-gray;
+    font-size: 14px;
+}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: @color-text-gray;
+    font-size: 14px;
 }
 
 body {

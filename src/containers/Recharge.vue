@@ -166,8 +166,8 @@
                     Message.warning('充值金额不要低于5元！');
                     return false;
                 }
-                if (this.amount >= 500000) {
-                    Message.warning('充值金额加手续费不要超过50万元！');
+                if (this.amount > 500000) {
+                    Message.warning('充值金额不要超过50万元！');
                     return false;
                 }
                 let newWind = window.open('/blank', '_KingGoldBlank');

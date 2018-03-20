@@ -109,6 +109,7 @@
         computed: {},
         methods: {
             switchType() {
+                this.imageCode = '';
                 this.loginType = (this.loginType + 1) % 2
             },
             getImageCode() {
