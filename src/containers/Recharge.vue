@@ -131,7 +131,7 @@
                             let {data} = res;
                             this.recharge = data.status;
                             if (data.status == 0) {
-                                setTimeout(this.checkStatus, 3000);
+                                timer = setTimeout(this.checkStatus, 3000);
                                 return false
                             }
                             if (this.currentPage == 1) {
@@ -255,7 +255,9 @@
             this.getRechargeList();
         },
         destroyed() {
-
+            if (timer) {
+                clearTimeout(timer);
+            }
         }
     }
 </script>
