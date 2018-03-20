@@ -24,7 +24,7 @@
                             <input id="imgCode" type="text" class="form-input"
                                    style="width: 120px" maxlength="4"
                                    v-model="inputCode" flex-box="0">
-                            <div flex-box="0" class="form-code"
+                            <div flex-box="0" class="form-code btn-primary"
                                  @click.stop="getImageCode"
                                  flex="main:center cross:center">{{imageCode}}
                             </div>
@@ -36,7 +36,7 @@
                             <input id="smsCode" type="text" class="form-input"
                                    style="width: 120px" maxlength="6"
                                    v-model="smsCode" flex-box="0">
-                            <div flex-box="0" class="form-code"
+                            <div flex-box="0" class="form-code btn-primary"
                                  @click.stop="getSmsCode"
                                  flex="main:center cross:center" v-if="verifyTimeLeft<1">{{smsText}}
                             </div>
