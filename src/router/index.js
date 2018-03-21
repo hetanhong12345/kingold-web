@@ -9,6 +9,7 @@ const Blank = () => import('../containers/Blank');
 const Account = () => import('../containers/Account');
 const Center = () => import('../containers/Center');
 const Recharge = () => import('../containers/Recharge');
+const RechargeResult = () => import('../containers/RechargeResult');
 
 Vue.use(Router);
 let routes = [
@@ -41,6 +42,14 @@ let routes = [
         component: Blank,
         meta: {
             title: '跳转中...'
+        }
+    },
+    {
+        path: '/recharge-result',
+        name: 'recharge-result',
+        component: RechargeResult,
+        meta: {
+            title: '充值结果'
         }
     },
     {

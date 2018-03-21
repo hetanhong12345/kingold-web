@@ -30,7 +30,8 @@ let terminal_id = config.terminal_id;
 // baofoo 充值
 export let submitRecharge = (params) => {
     let {userId, orderBillCode, amount, returnUrl} = params;
-    let pageUrl = `${baofooCallUrl}/baofoo/h5/notification/recharge`;
+    let backUrl = window.location.origin + '/recharge-result';
+    let pageUrl = `${baofooCallUrl}/baofoo/h5/notification/recharge?backUrl=${backUrl}`;
     $api.post('/invest/trade/rechargeParam', {
         amount,
         userId,
