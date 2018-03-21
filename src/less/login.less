@@ -7,6 +7,7 @@
     .body-warp {
         background: @bg-main;
         width: 100%;
+        overflow-x: hidden;
         .content {
             position: relative;
             margin: auto;
@@ -15,6 +16,9 @@
             .text-warp {
                 width: 100%;
                 position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
                 text-shadow: 1px 2px 3px rgba(67, 8, 7, 0.8);
                 color: #FF9086;
                 font-size: 250px;
