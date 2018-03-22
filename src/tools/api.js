@@ -39,6 +39,7 @@ let $query = (data) => {
 };
 let get = (path, data = {}) => {
     data.callSystemID = '1005';
+    data.t = new Date().getTime();
     return axios({
         url: path,
         method: 'get',
