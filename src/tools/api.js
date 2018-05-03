@@ -1,7 +1,6 @@
 /**
  * Created by hekk on 2017/5/28.
  */
-import 'babel-polyfill';
 import axios from 'axios';
 import config, {doEncrypt} from './config';
 import {encryptFun, decryptFun} from './crypto';

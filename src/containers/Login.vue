@@ -1,7 +1,10 @@
 <template>
     <div class="login" flex="dir:top">
         <web-header flex-box="0"></web-header>
+        <div flex-box="0">fuck you</div>
+        <div flex-box="0">fuck your hehe</div>
         <div class="body-warp" flex-box="1" flex>
+
             <div class="content" flex="main:center cross:center">
                 <div class="text-warp" flex="main:justify cross:center">
                     <span v-for="(letter,index) in 'KINGOLD'" :key="index">{{letter}}</span>

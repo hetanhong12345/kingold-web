@@ -7,6 +7,7 @@ import store from './store';
 import * as filters from './filters';
 import $api from './tools/api';
 import {telNumber} from './tools/config';
+import 'babel-polyfill';
 
 Vue.prototype.$api = $api;
 Vue.prototype.telNumber = telNumber;
