@@ -192,8 +192,6 @@ module.exports = (env = 'dev') => {
             })
 
         ]);
-    } else {
-        console.log('dev');
     }
     return config
 };
