@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "dev": "webpack --env dev --watch",
-        "test": "webpack --env test --progress --hide-modules",
+        "test": "webpack --env test --progress --hide-modules --profile",
         "stage": "cross-env NODE_ENV=stage webpack --progress --hide-modules",
         "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
     },

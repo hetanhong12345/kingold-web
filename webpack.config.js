@@ -162,6 +162,7 @@ module.exports = (env = 'dev') => {
                 title: '金疙瘩-中冀投资旗下智能定制理财平台',
                 favicon: './src/images/logo-icon.png',
                 chunks: ['polyfill', 'ventor', 'crypto', 'main'],
+                chunksSortMode: 'manual',
                 inject: 'body',
                 filename: path.resolve(__dirname, 'html/index.html'),
                 template: './index.ejs',

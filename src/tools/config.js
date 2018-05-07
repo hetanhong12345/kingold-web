@@ -8,8 +8,9 @@ let baofooCallUrl = `${protocol}//issuer-pc-test.zj-hf.cn`;
 let merchant_id = '100000675';
 let terminal_id = '100000701';
 let encrypt = false;
+console.log(process.env);
 /* test config*/
-if (process.env.kingold == 'test' || 1) {
+if (process.env.kingold == 'test') {
     apiUrl = `https://issuer-pc-test.zj-hf.cn`;
     baofooActionUrl = 'https://paytest.baofoo.com/baofoo-custody/custody/';
     baofooCallUrl = `${protocol}//issuer-pc-test.zj-hf.cn`;
